@@ -23,8 +23,12 @@ public class UserController{
     
     @RequestMapping(value="CreateAccount", method=RequestMethod.POST)
     @ResponseBody
-    public int CreateAccount(@RequestParam("username") String usrname, @RequestParam("password") String password){
-        return    ChatUser.createUser(usrname, password);
-
+    public String CreateAccount(@RequestParam("username") String usrname, @RequestParam("password") String password){
+        if(ChatUser.createUser(usrname, password) == null){
+            return "failed";
+        }
+        else{
+            return "success";
+        }
     }
 }

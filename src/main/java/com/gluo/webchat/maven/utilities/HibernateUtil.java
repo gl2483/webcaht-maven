@@ -14,7 +14,7 @@ import org.hibernate.cfg.Configuration;
  */
 public class HibernateUtil {
     
-    private static SessionFactory factory = initFactory();
+    private static final SessionFactory factory = initFactory();
     
     private static SessionFactory initFactory(){
         try{

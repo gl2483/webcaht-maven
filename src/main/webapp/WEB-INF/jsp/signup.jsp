@@ -24,10 +24,14 @@
                         url: "user/CreateAccount",
                         data: loginData,
                         success: function (result) {
-                            alert("success");
+                            if(result === 'success')
+                                alert("success");
+                            else{
+                                alert("failed");
+                            }
                         },
                         error: function (result) {
-                            alert("failed");
+                            alert("failed " + result.responseText);
                         }
                     });
                 });

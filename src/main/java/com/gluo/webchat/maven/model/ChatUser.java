@@ -22,7 +22,7 @@ public class ChatUser {
     private int UserId;
     private String Username;
     private String Password;
-     
+   
     
     public ChatUser(){}
     public ChatUser(int userid, String name, String pwd){
@@ -77,11 +77,14 @@ public class ChatUser {
             tx.commit();
         }
         catch(HibernateException ex){
-            if (tx!=null) tx.rollback();
+            if (tx!=null){
+                tx.rollback();
+                ret = null;
+            }
         }
         finally{
             session.close();
-        }
+        }/**/
         return ret;
     }
     
