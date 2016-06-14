@@ -88,6 +88,28 @@ public class ChatUser {
         return ret;
     }
     
+    public static ChatUser getUser(String name){
+        SessionFactory factory = HibernateUtil.getSessionFactory();
+        Session session = factory.openSession();
+        //Transaction tx = null;
+        ChatUser ret = null;
+        try{
+            //tx = session.beginTransaction();
+            ret = (ChatUser) session.get(ChatUser.class, name);
+            //tx.commit();
+        }
+        catch(HibernateException ex){
+            //if (tx!=null){
+                //tx.rollback();
+                ret = null;
+            //}
+        }
+        finally{
+            session.close();
+        }/**/
+        return ret;
+    }
+    
     
     
 }

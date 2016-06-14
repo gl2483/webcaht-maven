@@ -31,4 +31,10 @@ public class UserController{
             return "success";
         }
     }
+    
+    @RequestMapping(value="Login", method=RequestMethod.POST)
+    @ResponseBody
+    public String Login(@RequestParam("username") String usrname, @RequestParam("password") String password){
+        
+    }
 }
