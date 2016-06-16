@@ -65,11 +65,11 @@ public class ChatUser {
         }
     }
     
-    public static Integer createUser(String name, String pass){
+    /*public static Integer createUser(String name, String pass){
         SessionFactory factory = HibernateUtil.getSessionFactory();
+        Integer ret = null;
         Session session = factory.openSession();
         Transaction tx = null;
-        Integer ret = null;
         try{
             tx = session.beginTransaction();
             //ChatUser newuser = new ChatUser(name, pass);
@@ -84,31 +84,22 @@ public class ChatUser {
         }
         finally{
             session.close();
-        }/**/
+        }
+        
         return ret;
     }
     
     public static ChatUser getUser(String name){
-        SessionFactory factory = HibernateUtil.getSessionFactory();
-        Session session = factory.openSession();
-        //Transaction tx = null;
         ChatUser ret = null;
         try{
-            //tx = session.beginTransaction();
-            ret = (ChatUser) session.get(ChatUser.class, name);
-            //tx.commit();
+            ret = (ChatUser) HibernateUtil.getEntitiesByField(ChatUser.class, "Username", name).get(0);
         }
         catch(HibernateException ex){
-            //if (tx!=null){
-                //tx.rollback();
-                ret = null;
-            //}
+            System.err.println("Error getting entity." + ex);
+            ret = null;
         }
-        finally{
-            session.close();
-        }/**/
         return ret;
-    }
+    }*/
     
     
     

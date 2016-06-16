@@ -5,8 +5,12 @@
  */
 package com.gluo.webchat.maven.utilities;
 
+import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.criterion.Restrictions;
 
 /**
  *
@@ -21,7 +25,7 @@ public class HibernateUtil {
             return new Configuration().configure().buildSessionFactory();
          }catch (Throwable ex) { 
             System.err.println("Failed to create sessionFactory object." + ex);
-            throw new ExceptionInInitializerError(ex); 
+            return null;
       }
     }
     
@@ -32,4 +36,30 @@ public class HibernateUtil {
     public static void shutdown(){
         factory.close();
     }
+    
+    /*public static List<Object> getEntitiesByField(Class entityClass, String fieldname, String fieldvalue){
+        Session session = factory.openSession();
+        try{
+            Criteria criteria = session.createCriteria(entityClass);
+            return criteria.add(Restrictions.eq(fieldname, fieldvalue)).list();
+        }catch(Throwable ex){
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+    }
+    
+    public static List<Object> getEntities(Class entityClass){
+        Session session = factory.openSession();
+        try{
+            Criteria criteria = session.createCriteria(entityClass);
+            return criteria.list();
+        }catch(Throwable ex){
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+    }*/
 }

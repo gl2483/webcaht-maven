@@ -35,6 +35,12 @@ public class UserController{
     @RequestMapping(value="Login", method=RequestMethod.POST)
     @ResponseBody
     public String Login(@RequestParam("username") String usrname, @RequestParam("password") String password){
-        
+        ChatUser user = ChatUser.getUser(usrname);
+        if(user == null){
+            return new ResponseStatus("failed", "User does not exist.");
+        }
+        else{
+            return 
+        }
     }
 }
