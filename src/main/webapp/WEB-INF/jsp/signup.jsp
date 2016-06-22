@@ -19,19 +19,20 @@
                         username: $("#username").val(),
                         password: $("#password").val()
                     };
-                    $.ajax({
+                    $.ajax({   
                         type: "POST",
                         url: "user/CreateAccount",
                         data: loginData,
+                        dataType: "json",
                         success: function (result) {
-                            if(result === 'success')
+                            if(result.status === 'success')
                                 alert("success");
                             else{
-                                alert("failed");
+                                alert("failed " + result.message);
                             }
                         },
                         error: function (result) {
-                            alert("failed " + result.responseText);
+                            alert("failed " + result.message);
                         }
                     });
                 });

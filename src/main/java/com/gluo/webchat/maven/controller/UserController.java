@@ -5,12 +5,17 @@
  */
 package com.gluo.webchat.maven.controller;
 
+import com.gluo.webchat.maven.model.ChatUser;
+import com.gluo.webchat.maven.service.ChatUserDAO;
+import com.gluo.webchat.maven.service.ChatUserDAOImpl;
+import com.gluo.webchat.maven.utilities.ResponseStatus;
+import javax.inject.Inject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.gluo.webchat.maven.model.ChatUser;
 
 /**
  *
@@ -20,27 +25,31 @@ import com.gluo.webchat.maven.model.ChatUser;
 @RequestMapping("/user/*")
 public class UserController{
     
+    private ChatUserDAOImpl userDao;
     
     @RequestMapping(value="CreateAccount", method=RequestMethod.POST)
     @ResponseBody
-    public String CreateAccount(@RequestParam("username") String usrname, @RequestParam("password") String password){
-        if(ChatUser.createUser(usrname, password) == null){
-            return "failed";
+    public ResponseStatus CreateAccount(@RequestParam("username") String usrname, @RequestParam("password") String password){
+        try{
+            userDao.addUser(usrname, password);
+            return new ResponseStatus("success", usrname + " created account successfully");
         }
-        else{
-            return "success";
+        catch(Throwable ex){
+            return new ResponseStatus("failed", "Error: " + ex.getMessage());
         }
     }
     
     @RequestMapping(value="Login", method=RequestMethod.POST)
     @ResponseBody
-    public String Login(@RequestParam("username") String usrname, @RequestParam("password") String password){
-        ChatUser user = ChatUser.getUser(usrname);
-        if(user == null){
-            return new ResponseStatus("failed", "User does not exist.");
-        }
-        else{
-            return 
+    public ResponseStatus Login(@RequestParam("username") String usrname, @RequestParam("password") String password){
+        try{
+            ChatUser user = userDao.getUserByName(usrname);
+            if(user == null)
+                return new ResponseStatus("failed", "User does not exist.");
+            else
+                return new ResponseStatus("success", "");
+        }catch(Throwable ex){
+            return new ResponseStatus("failed", "Error: " + ex.getMessage());
         }
     }
 }

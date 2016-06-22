@@ -8,14 +8,11 @@ package com.gluo.webchat.maven.service;
 import com.gluo.webchat.maven.model.ChatUser;
 import java.util.List;
 
-/**
- *
- * @author luoguanqi
- */
+
 public interface ChatUserDAO {
     List<ChatUser> getUsers();
     ChatUser getUserById(int id);
     ChatUser getUserByName(String name);
-    ChatUser addUser(String name, String password);
-    ChatUser deleteUser(ChatUser user);
+    void addUser(String name, String password);
+    void deleteUser(ChatUser user);
 }

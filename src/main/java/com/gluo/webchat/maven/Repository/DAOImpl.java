@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.gluo.webchat.maven.Repository;
+/*package com.gluo.webchat.maven.Repository;
 
 import com.gluo.webchat.maven.utilities.HibernateUtil;
 import java.util.List;
@@ -12,14 +12,14 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Repository;*/
 
 /**
  *
  * @author luoguanqi
  */
 
-@Repository
+/*@Repository
 public class DAOImpl<E> implements DAO<E>{
     
     private final Class<E> type;
@@ -92,4 +92,4 @@ public class DAOImpl<E> implements DAO<E>{
         
         return ret;
     }
-}
+}*/

@@ -1,47 +1,117 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.gluo.webchat.maven.service;
 
-import com.gluo.webchat.maven.Repository.DAO;
 import com.gluo.webchat.maven.model.ChatUser;
+import com.gluo.webchat.maven.utilities.HibernateUtil;
 import java.util.List;
-import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author luoguanqi
  */
-@RequestScoped
+@Service
 public class ChatUserDAOImpl implements ChatUserDAO{
-
-    private DAO<ChatUser> dao;
+    
+    //private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    @Inject
+    private SessionFactory sessionFactory;
     
     @Override
     public List<ChatUser> getUsers() {
-        return dao.getEntities();
+        Session session = sessionFactory.openSession();
+        try{
+            Criteria criteria = session.createCriteria(ChatUser.class);
+            return criteria.list();
+        }catch(Throwable ex){
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+        /*throw new UnsupportedOperationException("Not supported yet.");*/
     }
 
     @Override
     public ChatUser getUserById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Session session = sessionFactory.openSession();
+        try{
+            return (ChatUser)session.get(ChatUser.class, id);
+        }catch(Throwable ex){
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+        /*throw new UnsupportedOperationException("Not supported yet.");*/
     }
 
     @Override
     public ChatUser getUserByName(String name) {
-        
+        Session session = sessionFactory.openSession();
+        try{
+            Criteria criteria = session.createCriteria(ChatUser.class);
+            return (ChatUser)criteria.add(Restrictions.eq("Username", name)).list().get(0);
+        }catch(Throwable ex){
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+        /*throw new UnsupportedOperationException("Not supported yet.");*/
     }
 
     @Override
-    public ChatUser addUser(String name, String password) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void addUser(String name, String password) {
+        Session session = sessionFactory.openSession();
+        //Transaction tx = null;
+        try{
+            //tx = session.beginTransaction();
+            ChatUser entity = (ChatUser) getUserByName(name);
+            if(entity == null){
+                entity = new ChatUser(name, password);
+                session.save(entity);
+            }
+            else
+                throw new UnsupportedOperationException("User: " + name + " already exists");
+            //tx.commit();
+        }
+        catch(HibernateException ex){
+            //if (tx!=null){
+                //tx.rollback();
+            //}
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+        /*throw new UnsupportedOperationException("Not supported yet.");*/
     }
 
     @Override
-    public ChatUser deleteUser(ChatUser user) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteUser(ChatUser user) {
+        Session session = sessionFactory.openSession();
+        //Transaction tx = null;
+        try{
+            //tx = session.beginTransaction();
+            ChatUser entity = (ChatUser) session.get(ChatUser.class, user.getUserId());
+            session.delete(entity);
+            //tx.commit();
+        }catch(Throwable ex){
+            //if (tx!=null)
+                //tx.rollback();
+            throw ex;
+        }
+        finally{
+            session.close();
+        }
+        /*throw new UnsupportedOperationException("Not supported yet.");*/
     }
     
 }
