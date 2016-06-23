@@ -7,12 +7,7 @@ package com.gluo.webchat.maven.model;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.hibernate.HibernateException;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import com.gluo.webchat.maven.utilities.AES;
-import com.gluo.webchat.maven.utilities.HibernateUtil;
 
 /**
  *
@@ -28,12 +23,12 @@ public class ChatUser {
     public ChatUser(int userid, String name, String pwd){
         UserId = userid;
         Username = name;
-        Password = pwd;
+        setPassword(pwd);
     }
     
     public ChatUser(String name, String pwd){
         Username = name;
-        Password = pwd;
+        setPassword(pwd);
     }
     
     public int getUserId(){

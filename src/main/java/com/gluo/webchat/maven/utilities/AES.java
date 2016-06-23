@@ -16,15 +16,18 @@ import sun.misc.*;
  */
 public class AES {
     private static final String algo = "AES";
-    private static final byte[] keyBytes = new byte[] { 's','o','m','e','r','a','m','d','o','m','k','e','y'};
+    //private static final byte[] keyBytes = new byte[] { 's','o','m','e','r','a','m','d','o','m','k','e','y'};
     
-    public static Key genKey() throws Exception{
-        Key key = new SecretKeySpec(keyBytes, algo);
+    public static Key genKey(String pass) throws Exception{
+        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        byte[] hash = md.digest(pass.getBytes("UTF-8"));
+        String h = "a";
+        Key key = new SecretKeySpec(hash, algo);
         return key;
     }
     
     public static String encrypt(String data) throws Exception{
-        Key key = genKey();
+        Key key = genKey(data);
         Cipher c = Cipher.getInstance(algo);
         c.init(Cipher.ENCRYPT_MODE, key);
         byte[] enc = c.doFinal(data.getBytes());

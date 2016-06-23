@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 public class ChatUserDAOImpl implements ChatUserDAO{
     
     //private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-    @Inject
+    @Autowired
     private SessionFactory sessionFactory;
     
     @Override
@@ -57,7 +58,11 @@ public class ChatUserDAOImpl implements ChatUserDAO{
         Session session = sessionFactory.openSession();
         try{
             Criteria criteria = session.createCriteria(ChatUser.class);
-            return (ChatUser)criteria.add(Restrictions.eq("Username", name)).list().get(0);
+            criteria.add(Restrictions.eq("Username", name));
+            List<Object> users = criteria.list();
+            if(users.isEmpty())
+                return null;
+            return (ChatUser)users.get(0);
         }catch(Throwable ex){
             throw ex;
         }

@@ -25,8 +25,10 @@
                         data: loginData,
                         dataType: "json",
                         success: function (result) {
-                            if(result.status === 'success')
+                            if(result.status === 'success'){
                                 alert("success");
+                                window.location.replace("chatclient");
+                            }
                             else{
                                 alert("failed " + result.message);
                             }

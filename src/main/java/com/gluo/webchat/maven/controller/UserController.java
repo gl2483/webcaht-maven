@@ -9,6 +9,7 @@ import com.gluo.webchat.maven.model.ChatUser;
 import com.gluo.webchat.maven.service.ChatUserDAO;
 import com.gluo.webchat.maven.service.ChatUserDAOImpl;
 import com.gluo.webchat.maven.utilities.ResponseStatus;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/user/*")
+@RequestScoped
 public class UserController{
     
-    private ChatUserDAOImpl userDao;
+    @Autowired
+    private ChatUserDAO userDao;
     
     @RequestMapping(value="CreateAccount", method=RequestMethod.POST)
     @ResponseBody
