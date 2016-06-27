@@ -14,6 +14,31 @@
                     window.location.replace("signup");
                 });
                 
+                $("#login").click(function(){
+                    var loginData={
+                        username: $("#username").val(),
+                        password: $("#password").val()
+                    };
+                    $.ajax({   
+                        type: "POST",
+                        url: "user/Login",
+                        data: loginData,
+                        dataType: "json",
+                        success: function (result) {
+                            if(result.status === 'success'){
+                                alert("success");
+                                window.location.replace("chatclient");
+                            }
+                            else{
+                                alert("failed " + result.message);
+                            }
+                        },
+                        error: function (result) {
+                            alert("failed " + result.message);
+                        }
+                    });
+                });
+                
                 
             });
         </script>

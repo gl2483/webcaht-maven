@@ -6,6 +6,7 @@
 package com.gluo.webchat.maven.utilities;
 
 import java.security.*;
+import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import sun.misc.*;
@@ -19,9 +20,9 @@ public class AES {
     //private static final byte[] keyBytes = new byte[] { 's','o','m','e','r','a','m','d','o','m','k','e','y'};
     
     public static Key genKey(String pass) throws Exception{
-        MessageDigest md = MessageDigest.getInstance("SHA-1");
+        MessageDigest md = MessageDigest.getInstance("SHA-256");
         byte[] hash = md.digest(pass.getBytes("UTF-8"));
-        String h = "a";
+        hash = Arrays.copyOf(hash, 16);
         Key key = new SecretKeySpec(hash, algo);
         return key;
     }

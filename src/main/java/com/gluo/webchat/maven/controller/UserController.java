@@ -7,10 +7,9 @@ package com.gluo.webchat.maven.controller;
 
 import com.gluo.webchat.maven.model.ChatUser;
 import com.gluo.webchat.maven.service.ChatUserDAO;
-import com.gluo.webchat.maven.service.ChatUserDAOImpl;
+import com.gluo.webchat.maven.utilities.AES;
 import com.gluo.webchat.maven.utilities.ResponseStatus;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,8 +48,12 @@ public class UserController{
             ChatUser user = userDao.getUserByName(usrname);
             if(user == null)
                 return new ResponseStatus("failed", "User does not exist.");
-            else
-                return new ResponseStatus("success", "");
+            else{
+                if(user.getPassword().equals(AES.encrypt(password)))
+                    return new ResponseStatus("success", "");
+                else
+                    return new ResponseStatus("failed", "Username and password does not match.");
+            }
         }catch(Throwable ex){
             return new ResponseStatus("failed", "Error: " + ex.getMessage());
         }
