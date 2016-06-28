@@ -10,8 +10,10 @@ import com.gluo.webchat.maven.service.ChatUserDAO;
 import com.gluo.webchat.maven.utilities.AES;
 import com.gluo.webchat.maven.utilities.ResponseStatus;
 import javax.enterprise.context.RequestScoped;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,14 +45,17 @@ public class UserController{
     
     @RequestMapping(value="Login", method=RequestMethod.POST)
     @ResponseBody
-    public ResponseStatus Login(@RequestParam("username") String usrname, @RequestParam("password") String password){
+    public ResponseStatus Login(HttpSession session, @RequestParam("username") String usrname, @RequestParam("password") String password){
         try{
             ChatUser user = userDao.getUserByName(usrname);
             if(user == null)
                 return new ResponseStatus("failed", "User does not exist.");
             else{
-                if(user.getPassword().equals(AES.encrypt(password)))
+                String encrypt = AES.encrypt(password);
+                if(user.getPassword().equals(encrypt)){
+                    session.setAttribute("currentLogin", user.getUsername());
                     return new ResponseStatus("success", "");
+                }
                 else
                     return new ResponseStatus("failed", "Username and password does not match.");
             }

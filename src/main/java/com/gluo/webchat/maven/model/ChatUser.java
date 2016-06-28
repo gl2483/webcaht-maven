@@ -23,12 +23,20 @@ public class ChatUser {
     public ChatUser(int userid, String name, String pwd){
         UserId = userid;
         Username = name;
-        setPassword(pwd);
+        try {
+            AES.encrypt(pwd);
+        } catch (Exception ex) {
+            Logger.getLogger(ChatUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public ChatUser(String name, String pwd){
         Username = name;
-        setPassword(pwd);
+        try {
+            AES.encrypt(pwd);
+        } catch (Exception ex) {
+            Logger.getLogger(ChatUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public int getUserId(){
@@ -52,6 +60,10 @@ public class ChatUser {
     }
     
     public void setPassword(String pwd){
+        Password = pwd;
+    }
+    
+    /*private void encryptPassword(String pwd){
         try{
             Password = AES.encrypt(pwd);
         }
@@ -60,7 +72,7 @@ public class ChatUser {
         }
     }
     
-    /*public static Integer createUser(String name, String pass){
+    public static Integer createUser(String name, String pass){
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Integer ret = null;
         Session session = factory.openSession();

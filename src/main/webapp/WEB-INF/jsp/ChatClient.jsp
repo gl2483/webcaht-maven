@@ -15,7 +15,7 @@
         <title>Chat page</title>
     </head>
     <body>
-        <h1>Welcome!!!!!!!!!!</h1>
+        <h1>Welcome!!!!!!!!!!${currentLogin}</h1>
         <table>
             <tr>
                 <td><input type="button" id="connect" value="connect"></td>
