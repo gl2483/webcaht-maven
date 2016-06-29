@@ -63,7 +63,7 @@ public class ChatUser {
         Password = pwd;
     }
     
-    /*private void encryptPassword(String pwd){
+    public void resetPassword(String pwd){
         try{
             Password = AES.encrypt(pwd);
         }
@@ -72,7 +72,7 @@ public class ChatUser {
         }
     }
     
-    public static Integer createUser(String name, String pass){
+    /*public static Integer createUser(String name, String pass){
         SessionFactory factory = HibernateUtil.getSessionFactory();
         Integer ret = null;
         Session session = factory.openSession();

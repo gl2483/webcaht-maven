@@ -117,6 +117,17 @@ public class ChatUserTest {
         instance.setPassword(pwd);
         // TODO review the generated test code and remove the default call to fail.
         assertNotEquals(instance.getPassword(), null);
+        assertEquals(instance.getPassword(), "data");
+    }
+    
+    @org.junit.Test
+    public void testResetPassword() {
+        System.out.println("setPassword");
+        String pwd = "data";
+        ChatUser instance = new ChatUser();
+        instance.resetPassword(pwd);
+        // TODO review the generated test code and remove the default call to fail.
+        assertNotEquals(instance.getPassword(), null);
         assertEquals(instance.getPassword(), "fnrBps5pFagcKU0s7q0EpQ==");
     }
     
