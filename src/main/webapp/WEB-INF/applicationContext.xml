@@ -34,6 +34,6 @@
         <property name="configLocation" value="classpath:hibernate.cfg.xml" />
     </bean>
     
-    <bean id="userDao" class="com.gluo.webchat.maven.service.ChatUserDAOImpl"></bean><!---->
+    <bean id="userDao" class="com.gluo.webchat.maven.service.ChatUserDAOImpl"></bean>
 
 </beans>

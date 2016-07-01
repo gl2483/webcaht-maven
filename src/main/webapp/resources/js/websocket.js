@@ -16,7 +16,7 @@ $().ready(function(){
         
      $("#connect").click(function(){
          try{
-            ws = new WebSocket("ws://localhost:8080/WebChat/webchat");
+            ws = new WebSocket("ws://localhost:8080/webchat-maven/webchat");
         
             ws.onopen = function(){
                 $("#text").append("connected\n");
@@ -29,6 +29,9 @@ $().ready(function(){
             ws.onmessage = function(msg){
                 $("#text").append(msg.data + " \n");
             };
+            //ws.onerror = function(msg){
+            //    alert("there is an error");
+            //};
          }catch(exception){
              alert(exception);
          }

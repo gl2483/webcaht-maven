@@ -31,7 +31,7 @@ public class ChatEndpoint {
     }
     
     @OnClose
-    public void onclose(Session s){
+    public void onclose(Session s){ 
         handler.remove(s);
         java.util.logging.Logger.getLogger(ChatEndpoint.class.getName()).log(Level.SEVERE, null, "Socket Closedd");
     }

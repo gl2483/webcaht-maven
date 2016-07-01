@@ -48,5 +48,6 @@
     
     <mvc:view-controller path="/signup" view-name="signup" />
     <mvc:view-controller path="/chatclient" view-name="ChatClient" />
+    <mvc:view-controller path="/" view-name="index" />
 
 </beans>
