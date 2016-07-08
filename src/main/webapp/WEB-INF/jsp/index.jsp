@@ -11,7 +11,7 @@
             $().ready(function(){
                 
                 $("#signup").click(function(){
-                    window.location.replace("signup");
+                    window.location.replace("${pageContext.request.contextPath}/signup");
                 });
                 
                 $("#login").click(function(){
@@ -45,7 +45,7 @@
     </head>
         
     <body>
-        <table>
+        <table class="table">
             <tr>
                 <td><label>User name: </label></td>
                 <td><input type="text" id="username" ></td>

@@ -44,7 +44,7 @@
         </script>
     </head>
     <body>
-        <table>
+        <table class="table">
             <tr>
                 <td><label>User name: </label></td>
                 <td><input type="text" id="username" ></td>
